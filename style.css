@@ -40,6 +40,9 @@ input, select {
   border-radius: 8px;
   width: 100%;
 }
+input[type="time"] {
+  min-width: 160px;
+}
 input[type="range"] {
   width: 100%;
 }
@@ -90,4 +93,9 @@ input[type="range"] {
   font-size: 0.8rem;
   color: #666;
   margin: 0 0 1rem 0.5rem;
+}
+@media (max-width: 600px) {
+  input[type="time"] {
+    width: 100%;
+  }
 }
