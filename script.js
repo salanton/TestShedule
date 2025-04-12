@@ -12,9 +12,9 @@ function formatDuration(seconds, detailedFormat) {
   const mm = Math.floor((seconds % 3600) / 60);
 
   if (detailedFormat) {
-    return `${hh.toString().padStart(2, '0')} час ${mm.toString().padStart(2, '0')} мин (${Math.floor(seconds / 60)} мин)`;
+    return `${hh} час ${mm} мин (${Math.floor(seconds / 60)} мин)`;
   } else {
-    return `${hh.toString().padStart(2, '0')} мин ${mm.toString().padStart(2, '0')} сек (${Math.floor(seconds)} сек)`;
+    return `${hh} мин ${mm} сек (${Math.floor(seconds)} сек)`;
   }
 }
 
