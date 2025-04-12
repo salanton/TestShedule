@@ -41,33 +41,23 @@ input, select {
   border-radius: 8px;
   width: 100%;
 }
-input[type="range"] {
+input[type=range] {
   width: 100%;
 }
 .results {
   margin-top: 2rem;
 }
-.results ul {
-  list-style: none;
-  padding-left: 0;
-}
-.results li {
-  background: #eef6fb;
-  padding: 0.75rem;
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 0.75rem;
-  border-radius: 8px;
 }
-.progress-bar {
-  background: #cce5ff;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-top: 4px;
-}
-.fill {
-  background: #007bff;
-  padding: 4px;
-  color: white;
-  text-align: right;
+.double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
 }
 .toggle {
   display: flex;
@@ -103,19 +93,8 @@ input[type="range"] {
 .toggle input:checked + .slider::before {
   transform: translateX(24px);
 }
-.inline {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-.double {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  align-items: center;
-}
-
-input[type=range] {
-  width: 100%;
+.option-desc {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0 0 1rem 0.5rem;
 }

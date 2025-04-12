@@ -42,20 +42,42 @@
 
         <div class="double">
           <label for="litre-time">⏱ Пролив 1л воды:</label>
-          <input type="time" id="litre-time" step="1" value="00:01:30">
+          <input type="time" id="litre-time" step="60" value="00:01">
 
           <label for="watering-duration">⏳ Длительность полива:</label>
-          <input type="time" id="watering-duration" step="1" value="00:00:30">
+          <input type="time" id="watering-duration" step="60" value="00:01">
+        </div>
+
+        <div class="inline">
+          <label for="water-volume">💦 Объём воды:</label>
+          <span id="water-volume-display">1000 мл</span>
+          <input type="range" id="water-volume" min="100" max="20000" step="100" value="1000">
         </div>
       </fieldset>
 
       <fieldset>
         <legend>⚙️ Опции</legend>
+
         <label class="toggle">
           💧 Правильный полив:
           <input type="checkbox" id="smart-watering" checked>
           <span class="slider"></span>
         </label>
+        <p class="option-desc">[Вкл. +30мин | Выкл. - 60мин]</p>
+
+        <label class="toggle">
+          🕶 Не учитывать освещение:
+          <input type="checkbox" id="ignore-lighting">
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Вкл. 00:00 | Режим 24/0]</p>
+
+        <label class="toggle">
+          ⭐ Приоритетный полив:
+          <input type="checkbox" id="priority-watering">
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Первый полив основной]</p>
       </fieldset>
     </form>
 
