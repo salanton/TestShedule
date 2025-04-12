@@ -98,3 +98,13 @@ input[type=range] {
   color: #666;
   margin: 0 0 1rem 0.5rem;
 }
+
+.double label {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.25rem;
+}
+.double input[type="time"] {
+  text-align: right;
+  width: 100%;
+}

@@ -18,3 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // TODO: Add full calculation logic here
 });
+
+        <ul>
+          ${schedule.map((s, idx) => `
+            <li>
+              ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
+              ${priority ? `<br><small>⏱ Длительность: ${s.duration}</small>` : ""}
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    } catch (err) {
+      output.innerHTML = "<p style='color:red'>Ошибка расчёта.</p>";
+      console.error(err);
+    }
+  }
+});
