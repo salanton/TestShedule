@@ -14,7 +14,7 @@
         <legend>🌞 Освещение</legend>
         <div class="inline">
           <label for="lamp-time">🕒 Время включения лампы:</label>
-          <input type="time" id="lamp-time" step="60" value="05:00:00" required />
+          <input type="time" id="lamp-time" step="60" value="05:00" required />
         </div>
         <div class="inline">
           <label for="light-mode">☀️ Световой режим:</label>
@@ -31,7 +31,7 @@
 
         <div class="inline">
           <label for="litre-time">⏱ Пролив 1л воды:</label>
-          <input type="time" id="litre-time" step="1" value="01:30:00" />
+          <input type="time" id="litre-time" step="60" value="01:30" />
         </div>
 
         <div class="inline">
@@ -53,13 +53,6 @@
           </div>
           <input type="range" id="water-volume" min="100" max="20000" step="100" value="1000" />
         </div>
-
-        <label class="toggle">
-          ⚖️ Объём на растение:
-          <input type="checkbox" id="volume-per-plant">
-          <span class="slider"></span>
-        </label>
-        <p class="option-desc">[Объём воды умножается на кол-во растений]</p>
       </fieldset>
 
       <fieldset>
@@ -71,6 +64,13 @@
           <span class="slider"></span>
         </label>
         <p class="option-desc">[Вкл. +30мин | Выкл. - 60мин]</p>
+
+        <label class="toggle">
+          ⚖️ Объём на растение:
+          <input type="checkbox" id="volume-per-plant">
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Объём воды умножается на кол-во растений]</p>
 
         <label class="toggle">
           🕶 Не учитывать освещение:
