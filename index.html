@@ -10,7 +10,29 @@
   <main class="container">
     <h1>💧 Автоматическое расписание полива</h1>
     <form id="watering-form">
-      $1</fieldset>
+      <fieldset>
+  <legend>🌞 Освещение</legend>
+  <div class="grid-two-column">
+    <div class="inline">
+      <label for="lamp-time">🕒 Время включения лампы:</label>
+      <input type="time" id="lamp-time" step="60" value="05:00" required />
+    </div>
+    <div class="inline">
+      <label for="light-mode">☀️ Световой режим:</label>
+      <select id="light-mode">
+        <option value="12/12">12/12 – Цветение | Регул.</option>
+        <option value="18/6" selected>18/6 – Вегетация | Авто</option>
+        <option value="24/0">24/0 – Выгонка | Хардкор</option>
+      </select>
+    </div>
+  </div>
+  <label class="toggle">
+    🕶 Не учитывать освещение:
+    <input type="checkbox" id="ignore-lighting" />
+    <span class="slider"></span>
+  </label>
+  <p class="option-desc">[Вкл. 00:00 | Режим 24/0]</p>
+</fieldset>
 
 <fieldset>
         <legend>🌱 Полив</legend>
