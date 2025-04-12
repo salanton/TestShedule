@@ -152,8 +152,12 @@ li {
 
 input[type="time"]::-webkit-datetime-edit-seconds-field {
   display: none;
+  visibility: hidden;
+  width: 0;
 }
 
 input[type="time"]::-moz-datetime-edit-seconds-field {
   display: none;
+  visibility: hidden;
+  width: 0;
 }
