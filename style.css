@@ -143,3 +143,25 @@ input[type="time"]::-moz-datetime-edit-seconds-field {
   visibility: hidden;
   width: 0;
 }
+
+.export-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.export-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #4caf50;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.export-buttons button:hover {
+  background: #43a047;
+}
