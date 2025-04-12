@@ -1,109 +1,100 @@
-function parseTimeString(timeStr) {
-  const [hh = 0, mm = 0] = timeStr.split(":").map(Number);
-  return hh * 3600 + mm * 60;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Автополив растений</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>💧 Автоматическое расписание полива</h1>
+    <form id="watering-form">
+      <fieldset>
+        <legend>🌞 Освещение</legend>
+        <div class="inline">
+          <label for="lamp-time">🕒 Время включения лампы:</label>
+          <input type="time" id="lamp-time" value="05:00" step="60" required />
+        </div>
+        <label>
+          ☀️ Световой режим:
+          <select id="light-mode">
+            <option value="12/12">12/12 – Цветение | Регул.</option>
+            <option value="18/6" selected>18/6 – Вегетация | Авто</option>
+            <option value="24/0">24/0 – Выгонка | Хардкор</option>
+          </select>
+        </label>
+      </fieldset>
 
-function formatTime(date) {
-  return date.toTimeString().slice(0, 5);
-}
+      <fieldset>
+        <legend>🌱 Полив</legend>
 
-function generateSchedule() {
-  const output = document.getElementById("schedule-output");
-  const lightTime = document.getElementById("lamp-time").value;
-  const mode = document.getElementById("light-mode").value;
-  const smart = document.getElementById("smart-watering").checked;
-  const ignoreLight = document.getElementById("ignore-lighting").checked;
-  const priority = document.getElementById("priority-watering").checked;
+        <div class="double">
+          <label for="litre-time">⏱ Пролив 1л воды:</label>
+          <input type="time" id="litre-time" step="60" value="00:01:30" />
+        </div>
 
-  const wateringCount = parseInt(document.getElementById("watering-count").value);
-  const plantCount = parseInt(document.getElementById("plant-count").value);
-  const litreTime = parseTimeString(document.getElementById("litre-time").value);
-  const volume = parseInt(document.getElementById("water-volume").value);
+        <div class="inline">
+          <label for="watering-count">🔢 Кол-во поливов:</label>
+          <span id="poliv-count">3</span>
+          <input type="range" id="watering-count" min="1" max="10" value="3" />
+        </div>
 
-  if (!wateringCount || !plantCount || !litreTime || !volume) {
-    output.innerHTML = "<p style='color:red'>Пожалуйста, заполните все поля.</p>";
-    return;
-  }
+        <div class="inline">
+          <label for="plant-count">🌱 Кол-во растений:</label>
+          <span id="plant-count-value">3</span>
+          <input type="range" id="plant-count" min="1" max="20" value="3" />
+        </div>
 
-  const waterPerSecond = 1000 / litreTime;
-  const totalWater = volume;
-  const perPlant = totalWater / plantCount;
+        <div class="inline">
+          <label for="water-volume">💦 Объём воды:</label>
+          <span id="water-volume-display">1000 мл</span>
+          <input type="range" id="water-volume" min="100" max="20000" step="100" value="1000" />
+        </div>
 
-  let lightHours = 24;
-  let startTime = new Date();
-  if (!ignoreLight) {
-    const [h, m] = lightTime.split(":" ).map(Number);
-    startTime.setHours(h, m, 0, 0);
-    lightHours = { "12/12": 12, "18/6": 18, "24/0": 24 }[mode];
-  } else {
-    startTime.setHours(0, 0, 0, 0);
-  }
+        <label class="toggle">
+          ⚖️ Объём на растение:
+          <input type="checkbox" id="volume-per-plant">
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Объём воды умножается на кол-во растений]</p>
+      </fieldset>
 
-  const shiftStart = smart && !ignoreLight ? 30 : 0;
-  const shiftEnd = smart && !ignoreLight ? 60 : 0;
-  const lightMinutes = lightHours * 60 - shiftStart - shiftEnd;
-  const interval = wateringCount > 1 ? lightMinutes / (wateringCount - 1) : 0;
+      <fieldset>
+        <legend>⚙️ Опции</legend>
 
-  const schedule = [];
-  let waterList = [];
-  if (priority) {
-    let firstRatio = 0.5;
-    if (wateringCount > 3 && wateringCount <= 6) firstRatio = 1 / 3;
-    else if (wateringCount > 6 && wateringCount <= 9) firstRatio = 1 / 5;
-    else if (wateringCount >= 10) firstRatio = 1 / 7;
-    const firstWater = totalWater * firstRatio;
-    const remaining = totalWater - firstWater;
-    const others = wateringCount - 1;
-    waterList.push(firstWater);
-    for (let i = 0; i < others; i++) waterList.push(remaining / others);
-  } else {
-    for (let i = 0; i < wateringCount; i++) waterList.push(totalWater / wateringCount);
-  }
+        <label class="toggle">
+          💧 Правильный полив:
+          <input type="checkbox" id="smart-watering" checked />
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Вкл. +30мин | Выкл. - 60мин]</p>
 
-  for (let i = 0; i < wateringCount; i++) {
-    const t = new Date(startTime.getTime());
-    t.setMinutes(t.getMinutes() + shiftStart + i * interval);
-    const durationSeconds = waterList[i] / waterPerSecond;
-    const dmin = Math.floor(durationSeconds / 60);
-    const dsec = Math.floor(durationSeconds % 60);
-    schedule.push({
-      time: formatTime(t),
-      volume: waterList[i].toFixed(0),
-      perPlant: (waterList[i] / plantCount).toFixed(0),
-      duration: `${dmin} мин ${dsec} сек`
-    });
-  }
+        <label class="toggle">
+          🕶 Не учитывать освещение:
+          <input type="checkbox" id="ignore-lighting" />
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Вкл. 00:00 | Режим 24/0]</p>
 
-  output.innerHTML = `
-    <h3>💧 Всего за день: ${totalWater.toFixed(0)} мл</h3>
-    <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
-    <ul>
-      ${schedule.map(s => `
-        <li>
-          ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
-          ${priority ? `<br><small>⏱ Длительность: ${s.duration}</small>` : ""}
-        </li>
-      `).join('')}
-    </ul>
-  `;
-}
+        <label class="toggle">
+          ⭐ Приоритетный полив:
+          <input type="checkbox" id="priority-watering" />
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Первый полив основной]</p>
 
-function initBindings() {
-  ["watering-count", "plant-count", "water-volume"].forEach(id => {
-    const slider = document.getElementById(id);
-    const label = document.getElementById(id.replace("-count", "-count-value") || id + "-display");
-    slider.addEventListener("input", () => {
-      label.textContent = slider.value + (id === "water-volume" ? " мл" : "");
-      generateSchedule();
-    });
-  });
+        <label class="toggle">
+          🕐 Формат длительности:
+          <input type="checkbox" id="format-duration" />
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Минуты и секунды вместо часов и минут]</p>
+      </fieldset>
+    </form>
 
-  document.querySelectorAll("input, select").forEach(el => {
-    el.addEventListener("change", generateSchedule);
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  initBindings();
-  generateSchedule();
-});
+    <section id="schedule-output" class="results"></section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
