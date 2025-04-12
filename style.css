@@ -59,6 +59,11 @@ input[type="range"] {
   margin-bottom: 0.75rem;
   flex-wrap: wrap;
 }
+.grid-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
 .toggle {
   display: flex;
   align-items: center;
@@ -102,6 +107,9 @@ input[type="range"] {
   .inline {
     flex-direction: column;
     align-items: stretch;
+  }
+  .grid-two-column {
+    grid-template-columns: 1fr;
   }
   input[type="time"], select {
     width: 100%;
