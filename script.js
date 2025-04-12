@@ -86,3 +86,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+
+function initCustomTimepickers() {
+  document.querySelectorAll('.timepicker').forEach(tp => {
+    ['hh', 'mm', 'ss'].forEach(unit => {
+      const select = document.createElement('select');
+      select.className = unit;
+      const max = unit === 'hh' ? 23 : 59;
+      for (let i = 0; i <= max; i++) {
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = i.toString().padStart(2, '0');
+        select.appendChild(opt);
+      }
+      tp.appendChild(select);
+    });
+    const bind = tp.dataset.bind;
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = bind;
+    tp.appendChild(hidden);
+  });
+}
+
+function readCustomTimes() {
+  document.querySelectorAll('.timepicker').forEach(tp => {
+    const hh = tp.querySelector('.hh').value;
+    const mm = tp.querySelector('.mm').value;
+    const ss = tp.querySelector('.ss').value;
+    const hidden = tp.querySelector('input[type="hidden"]');
+    hidden.value = `${hh}:${mm}:${ss}`;
+  });
+}
+
+// запускаем после загрузки
+window.addEventListener('DOMContentLoaded', () => {
+  initCustomTimepickers();
+  setTimeout(() => {
+    document.querySelectorAll('.hh').forEach(el => el.value = '00');
+    document.querySelectorAll('.mm').forEach(el => el.value = '01');
+    document.querySelectorAll('.ss').forEach(el => el.value = '30');
+    readCustomTimes();
+    document.querySelector('#watering-form').dispatchEvent(new Event('input'));
+  }, 100);
+});
+
+// обновляем скрытые поля при любом изменении
+document.addEventListener('change', () => {
+  readCustomTimes();
+});

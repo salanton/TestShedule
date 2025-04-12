@@ -116,3 +116,20 @@ input[type=range] {
 .centered-slider input[type="range"] {
   margin-top: 0.5rem;
 }
+
+.slider-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.timepicker {
+  display: flex;
+  gap: 4px;
+  margin-top: 0.25rem;
+}
+.timepicker select {
+  padding: 0.3rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
