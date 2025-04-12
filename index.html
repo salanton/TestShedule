@@ -14,7 +14,7 @@
         <legend>🌞 Освещение</legend>
         <div class="inline">
           <label for="lamp-time">🕒 Время включения лампы:</label>
-          <input type="time" id="lamp-time" value="05:00" required />
+          <input type="time" id="lamp-time" value="05:00" step="60" required />
         </div>
         <label>
           ☀️ Световой режим:
@@ -28,6 +28,12 @@
 
       <fieldset>
         <legend>🌱 Полив</legend>
+
+        <div class="double">
+          <label for="litre-time">⏱ Пролив 1л воды:</label>
+          <input type="time" id="litre-time" step="60" value="00:01:30" />
+        </div>
+
         <div class="inline">
           <label for="watering-count">🔢 Кол-во поливов:</label>
           <span id="poliv-count">3</span>
@@ -40,19 +46,18 @@
           <input type="range" id="plant-count" min="1" max="20" value="3" />
         </div>
 
-        <div class="double">
-          <label for="litre-time">⏱ Пролив 1л воды:</label>
-          <input type="time" id="litre-time" step="60" value="00:01" />
-
-          <label for="watering-duration">⏳ Длительность полива:</label>
-          <input type="time" id="watering-duration" step="60" value="00:01" />
-        </div>
-
         <div class="inline">
           <label for="water-volume">💦 Объём воды:</label>
           <span id="water-volume-display">1000 мл</span>
           <input type="range" id="water-volume" min="100" max="20000" step="100" value="1000" />
         </div>
+
+        <label class="toggle">
+          ⚖️ Объём на растение:
+          <input type="checkbox" id="volume-per-plant">
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Объём воды умножается на кол-во растений]</p>
       </fieldset>
 
       <fieldset>
@@ -78,6 +83,13 @@
           <span class="slider"></span>
         </label>
         <p class="option-desc">[Первый полив основной]</p>
+
+        <label class="toggle">
+          🕐 Формат длительности:
+          <input type="checkbox" id="format-duration" />
+          <span class="slider"></span>
+        </label>
+        <p class="option-desc">[Минуты и секунды вместо часов и минут]</p>
       </fieldset>
     </form>
 
