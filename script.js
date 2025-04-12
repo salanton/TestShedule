@@ -1,6 +1,6 @@
 function parseTimeString(timeStr) {
-  const [hh = 0, mm = 0, ss = 0] = timeStr.split(":").map(Number);
-  return hh * 3600 + mm * 60 + ss;
+  const [hh = 0, mm = 0] = timeStr.split(":").map(Number);
+  return hh * 3600 + mm * 60;
 }
 
 function formatTime(date) {
@@ -114,8 +114,8 @@ function initBindings() {
   updateSliderDisplay("water-volume", "water-volume-display", " мл");
 
   document.querySelectorAll("input, select").forEach(el => {
-    el.addEventListener("change", generateSchedule);
-  });
+    ["input", "change"].forEach(evt => el.addEventListener(evt, generateSchedule));
+});
 }
 
 document.addEventListener("DOMContentLoaded", () => {
