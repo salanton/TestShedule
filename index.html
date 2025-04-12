@@ -13,9 +13,9 @@
       <fieldset>
         <legend>🌞 Освещение</legend>
         <div class="inline">
-          <label for="lamp-time">🕒 Время включения лампы:</label>
-          <input type="time" id="lamp-time" value="05:00" step="60" required />
-        </div>
+  <label for="lamp-time">🕒 Время включения лампы:</label>
+  <input type="time" id="lamp-time" step="60" value="05:00:00" required />
+</div>
         <label>
           ☀️ Световой режим:
           <select id="light-mode">
@@ -29,10 +29,10 @@
       <fieldset>
         <legend>🌱 Полив</legend>
 
-        <div class="double">
-          <label for="litre-time">⏱ Пролив 1л воды:</label>
-          <input type="time" id="litre-time" step="60" value="00:01:30" />
-        </div>
+        <div class="inline">
+  <label for="litre-time">⏱ Пролив 1л воды:</label>
+  <input type="time" id="litre-time" step="1" value="01:30:00" />
+</div>
 
         <div class="inline">
           <label for="watering-count">🔢 Кол-во поливов:</label>
@@ -89,7 +89,7 @@
           <input type="checkbox" id="format-duration" />
           <span class="slider"></span>
         </label>
-        <p class="option-desc">[Минуты и секунды вместо часов и минут]</p>
+        <p class="option-desc">[ММ:СС / ЧЧ:ММ]</p>
       </fieldset>
     </form>
 
