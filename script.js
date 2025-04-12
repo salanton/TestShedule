@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     volumeDisplay.textContent = `${volumeRange.value} мл`;
   });
 
-  // TODO: Add full calculation logic here
+  generateSchedule();
 });
 
         <ul>
