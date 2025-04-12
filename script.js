@@ -48,7 +48,7 @@ function generateSchedule() {
   let lightHours = 24;
   let startTime = new Date();
   if (!ignoreLight) {
-    const [h, m] = lightTime.split(":" ).map(Number);
+    const [h, m] = lightTime.split(":").map(Number);
     startTime.setHours(h, m, 0, 0);
     lightHours = { "12/12": 12, "18/6": 18, "24/0": 24 }[mode];
   } else {
