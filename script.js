@@ -18,6 +18,9 @@ function formatDuration(seconds, detailedFormat) {
   }
 }
 
+let schedule = [];
+let waterList = [];
+
 function generateSchedule() {
   const output = document.getElementById("schedule-output");
   const lightTime = document.getElementById("lamp-time").value;
@@ -57,8 +60,7 @@ function generateSchedule() {
   const lightMinutes = lightHours * 60 - shiftStart - shiftEnd;
   const interval = wateringCount > 1 ? lightMinutes / (wateringCount - 1) : 0;
 
-  const schedule = [];
-  let waterList = [];
+  // schedule и waterList вынесены глобально выше
   if (priority) {
     let firstRatio = 0.5;
     if (wateringCount > 3 && wateringCount <= 6) firstRatio = 1 / 3;
@@ -86,24 +88,17 @@ function generateSchedule() {
   }
 
   output.innerHTML = `
-  <h3>💧 Всего за день: ${totalWater.toFixed(0)} мл</h3>
-  <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
-  <ul>
-    ${schedule.map((s, idx) => {
-      const [a, b] = s.duration.match(/\d+/g).map(Number);
-      const unit = detailedFormat ? "мин" : "сек";
-      const total = a * 60 + b;
-      return `
+    <h3>💧 Всего за день: ${totalWater.toFixed(0)} мл</h3>
+    <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
+    <ul>
+      ${schedule.map(s => `
         <li>
-          ${idx + 1}. ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
-          <br><small>⏱ Длительность: ${s.duration} (${total} ${unit})</small>
+          ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
+          <br><small>⏱ Длительность: ${s.duration}</small>
         </li>
-      `;
-    }).join('')}
-  </ul>
-`;
-
-
+      `).join('')}
+    </ul>
+  `;
 }
 
 function initBindings() {
@@ -128,4 +123,35 @@ function initBindings() {
 document.addEventListener("DOMContentLoaded", () => {
   initBindings();
   generateSchedule();
+
+  // Export CSV button handler
+  const exportBtn = document.getElementById("export-csv");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", () => {
+      const rows = [
+        ["#", "Время", "Общий объем (мл)", "На растение (мл)", "Длительность"]
+      ];
+      schedule.forEach((s, i) => {
+        rows.push([i + 1, s.time, s.volume, s.perPlant, s.duration]);
+      });
+      const csv = rows.map(r => r.join(",")).join("
+");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "schedule.csv";
+      link.click();
+    });
+  }
+
+  // Copy to clipboard handler
+  const copyBtn = document.getElementById("copy-schedule");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      const text = document.getElementById("schedule-output").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Расписание скопировано в буфер обмена!");
+      });
+    });
+  }
 });
