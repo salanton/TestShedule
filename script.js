@@ -86,17 +86,24 @@ function generateSchedule() {
   }
 
   output.innerHTML = `
-    <h3>💧 Всего за день: ${totalWater.toFixed(0)} мл</h3>
-    <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
-    <ul>
-      ${schedule.map(s => `
+  <h3>💧 Всего за день: ${totalWater.toFixed(0)} мл</h3>
+  <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
+  <ul>
+    ${schedule.map((s, idx) => {
+      const totalSecs = Math.round(waterList[idx] / waterPerSecond);
+      const totalUnit = detailedFormat
+        ? `${Math.floor(totalSecs / 60)} мин`
+        : `${totalSecs} сек`;
+      return `
         <li>
-          ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
-          <br><small>⏱ Длительность: ${s.duration}</small>
+          ${idx + 1}. ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
+          <br><small>⏱ Длительность: ${s.duration} (${totalUnit})</small>
         </li>
-      `).join('')}
-    </ul>
-  `;
+      `;
+    }).join('')}
+  </ul>
+`;
+
 }
 
 function initBindings() {
