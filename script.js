@@ -119,6 +119,13 @@ function initBindings() {
   document.querySelectorAll("input, select").forEach(el => {
     ["input", "change"].forEach(evt => el.addEventListener(evt, generateSchedule));
   });
+
+  // Обновление CSS: выравнивание label + input и запрет переносов
+  document.querySelectorAll(".inline label").forEach(label => {
+    label.style.whiteSpace = "nowrap";
+    label.style.display = "inline-block";
+    label.style.flexShrink = "0";
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
