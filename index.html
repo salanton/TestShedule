@@ -19,21 +19,15 @@
         <label>
           ☀️ Световой режим:
           <select id="light-mode">
-            <option value="12/12">12/12</option>
-            <option value="18/6" selected>18/6</option>
-            <option value="24/0">24/0</option>
+            <option value="12/12">12/12 – Цветение | Регул.</option>
+            <option value="18/6" selected>18/6 – Вегетация | Авто</option>
+            <option value="24/0">24/0 – Выгонка | Хардкор</option>
           </select>
-        </label>
-        <label class="toggle">
-          💧 Правильный полив:
-          <input type="checkbox" id="smart-watering" checked>
-          <span class="slider"></span>
         </label>
       </fieldset>
 
       <fieldset>
         <legend>🌱 Полив</legend>
-
         <div class="inline">
           <label for="watering-count">🔢 Кол-во поливов:</label>
           <span id="poliv-count">3</span>
@@ -43,7 +37,7 @@
         <div class="inline">
           <label for="plant-count">🌱 Кол-во растений:</label>
           <span id="plant-count-value">3</span>
-          <input type="number" id="plant-count" min="1" value="3">
+          <input type="range" id="plant-count" min="1" max="20" value="3">
         </div>
 
         <div class="double">
@@ -53,6 +47,15 @@
           <label for="watering-duration">⏳ Длительность полива:</label>
           <input type="time" id="watering-duration" step="1" value="00:00:30">
         </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>⚙️ Опции</legend>
+        <label class="toggle">
+          💧 Правильный полив:
+          <input type="checkbox" id="smart-watering" checked>
+          <span class="slider"></span>
+        </label>
       </fieldset>
     </form>
 

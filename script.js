@@ -91,3 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const plantRange = document.getElementById('plant-count');
+  const plantValue = document.getElementById('plant-count-value');
+  plantRange.addEventListener('input', () => {
+    plantValue.textContent = plantRange.value;
+  });
+});

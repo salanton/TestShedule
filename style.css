@@ -115,3 +115,7 @@ input[type="range"] {
   gap: 1rem;
   align-items: center;
 }
+
+input[type=range] {
+  width: 100%;
+}
