@@ -8,19 +8,13 @@ function formatTime(date) {
 }
 
 function formatDuration(seconds, detailedFormat) {
-  const hr = Math.floor(seconds / 3600);
-  const min = Math.floor((seconds % 3600) / 60);
+  const hh = Math.floor(seconds / 3600);
+  const mm = Math.floor((seconds % 3600) / 60);
 
   if (detailedFormat) {
-    return `${hr.toString().padStart(2, '0')} час ${min.toString().padStart(2, '0')} мин`;
+    return `${hh.toString().padStart(2, '0')} час ${mm.toString().padStart(2, '0')} мин`;
   } else {
-    return `${hr.toString().padStart(2, '0')} мин ${min.toString().padStart(2, '0')} сек`;
-  }
-} час ${min.toString().padStart(2, '0')} мин`;
-  } else {
-    const totalMin = Math.floor(seconds / 60);
-    const totalSec = Math.floor(seconds % 60);
-    return `${totalMin.toString().padStart(2, '0')} мин ${totalSec.toString().padStart(2, '0')} сек`;
+    return `${hh.toString().padStart(2, '0')} мин ${mm.toString().padStart(2, '0')} сек`;
   }
 }
 
