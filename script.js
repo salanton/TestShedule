@@ -90,19 +90,19 @@ function generateSchedule() {
   <h4>🌱 Каждое растение получит: ${perPlant.toFixed(0)} мл</h4>
   <ul>
     ${schedule.map((s, idx) => {
-      const totalSecs = Math.round(waterList[idx] / waterPerSecond);
-      const totalUnit = detailedFormat
-        ? `${Math.floor(totalSecs / 60)} мин`
-        : `${totalSecs} сек`;
+      const [a, b] = s.duration.match(/\d+/g).map(Number);
+      const unit = detailedFormat ? "мин" : "сек";
+      const total = a * 60 + b;
       return `
         <li>
           ${idx + 1}. ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
-          <br><small>⏱ Длительность: ${s.duration} (${totalUnit})</small>
+          <br><small>⏱ Длительность: ${s.duration} (${total} ${unit})</small>
         </li>
       `;
     }).join('')}
   </ul>
 `;
+
 
 }
 
