@@ -108,3 +108,11 @@ input[type=range] {
 .toggle input:checked + .slider::before {
   transform: translateX(24px);
 }
+
+.centered-slider {
+  align-items: center;
+  text-align: center;
+}
+.centered-slider input[type="range"] {
+  margin-top: 0.5rem;
+}

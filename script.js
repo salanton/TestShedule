@@ -81,3 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
+
+
+window.addEventListener('load', () => setTimeout(() => document.querySelector('#watering-form').dispatchEvent(new Event('input')), 100));

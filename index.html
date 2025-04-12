@@ -14,26 +14,26 @@
         <legend>🌞 Освещение</legend>
         <label>
           🕒 Время включения лампы:
-          <input type="time" id="lamp-time" required>
+          <input type="time" id="lamp-time" value="05:00" required>
         </label>
         <label>
           ☀️ Световой режим:
           <select id="light-mode">
             <option value="12/12">12/12</option>
-            <option value="18/6">18/6</option>
+            <option value="18/6" selected>18/6</option>
             <option value="24/0">24/0</option>
           </select>
         </label>
         <label class="toggle">
           💧 Правильный полив:
-          <input type="checkbox" id="smart-watering">
+          <input type="checkbox" id="smart-watering" checked>
           <span class="slider"></span>
         </label>
       </fieldset>
 
       <fieldset>
         <legend>🌱 Полив</legend>
-        <label>
+        <label class="centered-slider">
           🔢 Кол-во поливов: <span id="poliv-count">3</span>
           <input type="range" id="watering-count" min="1" max="20" value="3">
         </label>
@@ -43,11 +43,11 @@
         </label>
         <label>
           ⏱ Пролив 1л воды:
-          <input type="time" id="litre-time" step="1" required>
+          <input type="time" id="litre-time" value="00:01:30" step="1" required>
         </label>
         <label>
           ⏳ Длительность полива:
-          <input type="time" id="watering-duration" step="1" required>
+          <input type="time" id="watering-duration" value="00:00:30" step="1" required>
         </label>
       </fieldset>
     </form>
