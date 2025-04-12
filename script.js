@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const countDisplay = document.getElementById('poliv-count');
   const slider = document.getElementById('watering-count');
   countDisplay.textContent = slider.value;
+
   form.querySelectorAll('input, select').forEach(el => {
     el.addEventListener('input', generateSchedule);
     el.addEventListener('change', generateSchedule);
@@ -18,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
   slider.addEventListener('input', () => {
     countDisplay.textContent = slider.value;
   });
+
+  generateSchedule(); // авторасчёт при загрузке
 
   function generateSchedule() {
     try {
@@ -41,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const waterPerPoliv = wateringDuration * waterPerSecond;
       const totalWater = waterPerPoliv * wateringCount;
       const waterPerPlant = waterPerPoliv / plantCount;
+      const waterPlantTotal = waterPerPlant * wateringCount;
 
       const lightHours = { '12/12': 12, '18/6': 18, '24/0': 24 }[mode];
       const [h, m] = lampTime.split(':').map(Number);
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       output.innerHTML = `
         <h3>💧 Всего за день: ${totalWater.toFixed(1)} мл</h3>
+        <h4>🌱 Каждое растение получит: ${waterPlantTotal.toFixed(1)} мл</h4>
         <ul>
           ${schedule.map(s => `
             <li>
@@ -81,6 +86,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 });
-
-
-window.addEventListener('load', () => setTimeout(() => document.querySelector('#watering-form').dispatchEvent(new Event('input')), 100));

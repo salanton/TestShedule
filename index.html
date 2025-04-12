@@ -33,7 +33,7 @@
 
       <fieldset>
         <legend>🌱 Полив</legend>
-        <label class="centered-slider">
+        <label>
           🔢 Кол-во поливов: <span id="poliv-count">3</span>
           <input type="range" id="watering-count" min="1" max="20" value="3">
         </label>
@@ -43,11 +43,11 @@
         </label>
         <label>
           ⏱ Пролив 1л воды:
-          <input type="time" id="litre-time" value="00:01:30" step="1" required>
+          <input type="text" id="litre-time" value="00:01:30" pattern="\d{2}:\d{2}:\d{2}" required>
         </label>
         <label>
           ⏳ Длительность полива:
-          <input type="time" id="watering-duration" value="00:00:30" step="1" required>
+          <input type="text" id="watering-duration" value="00:00:30" pattern="\d{2}:\d{2}:\d{2}" required>
         </label>
       </fieldset>
     </form>
