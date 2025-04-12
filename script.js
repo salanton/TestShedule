@@ -10,10 +10,13 @@ function formatTime(date) {
 function formatDuration(seconds, detailedFormat) {
   const hr = Math.floor(seconds / 3600);
   const min = Math.floor((seconds % 3600) / 60);
-  const sec = Math.floor(seconds % 60);
 
   if (detailedFormat) {
     return `${hr.toString().padStart(2, '0')} час ${min.toString().padStart(2, '0')} мин`;
+  } else {
+    return `${hr.toString().padStart(2, '0')} мин ${min.toString().padStart(2, '0')} сек`;
+  }
+} час ${min.toString().padStart(2, '0')} мин`;
   } else {
     const totalMin = Math.floor(seconds / 60);
     const totalSec = Math.floor(seconds % 60);
@@ -48,7 +51,7 @@ function generateSchedule() {
   let lightHours = 24;
   let startTime = new Date();
   if (!ignoreLight) {
-    const [h, m] = lightTime.split(":").map(Number);
+    const [h, m] = lightTime.split(":" ).map(Number);
     startTime.setHours(h, m, 0, 0);
     lightHours = { "12/12": 12, "18/6": 18, "24/0": 24 }[mode];
   } else {
