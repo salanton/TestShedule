@@ -8,14 +8,16 @@ function formatTime(date) {
 }
 
 function formatDuration(seconds, detailedFormat) {
-  if (!detailedFormat) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min.toString().padStart(2, '0')} мин ${sec.toString().padStart(2, '0')} сек`;
-  } else {
-    const hr = Math.floor(seconds / 3600);
-    const min = Math.floor((seconds % 3600) / 60);
+  const hr = Math.floor(seconds / 3600);
+  const min = Math.floor((seconds % 3600) / 60);
+  const sec = Math.floor(seconds % 60);
+
+  if (detailedFormat) {
     return `${hr.toString().padStart(2, '0')} час ${min.toString().padStart(2, '0')} мин`;
+  } else {
+    const totalMin = Math.floor(seconds / 60);
+    const totalSec = Math.floor(seconds % 60);
+    return `${totalMin.toString().padStart(2, '0')} мин ${totalSec.toString().padStart(2, '0')} сек`;
   }
 }
 
