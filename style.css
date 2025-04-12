@@ -13,6 +13,7 @@ body {
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   border-radius: 16px;
   margin-top: 2rem;
+  box-sizing: border-box;
 }
 h1 {
   text-align: center;
@@ -24,6 +25,7 @@ fieldset {
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 legend {
   font-weight: bold;
@@ -39,6 +41,7 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 100%;
+  box-sizing: border-box;
 }
 input[type="time"] {
   min-width: 160px;
@@ -54,6 +57,7 @@ input[type="range"] {
   align-items: center;
   gap: 1rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 .toggle {
   display: flex;
@@ -95,7 +99,11 @@ input[type="range"] {
   margin: 0 0 1rem 0.5rem;
 }
 @media (max-width: 600px) {
-  input[type="time"] {
+  .inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  input[type="time"], select {
     width: 100%;
   }
 }
