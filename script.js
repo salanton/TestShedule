@@ -7,6 +7,20 @@ function formatTime(date) {
   return date.toTimeString().slice(0, 5);
 }
 
+function formatDuration(seconds, detailedFormat) {
+  const hh = Math.floor(seconds / 3600);
+  const mm = Math.floor((seconds % 3600) / 60);
+
+  if (detailedFormat) {
+    return `${hh.toString().padStart(2, '0')} час ${mm.toString().padStart(2, '0')} мин (${Math.floor(seconds / 60)} мин)`;
+  } else {
+    return `${hh.toString().padStart(2, '0')} мин ${mm.toString().padStart(2, '0')} сек (${Math.floor(seconds)} сек)`;
+  }
+}
+
+let schedule = [];
+let waterList = [];
+
 function generateSchedule() {
   const output = document.getElementById("schedule-output");
   const lightTime = document.getElementById("lamp-time").value;
@@ -14,7 +28,7 @@ function generateSchedule() {
   const smart = document.getElementById("smart-watering").checked;
   const ignoreLight = document.getElementById("ignore-lighting").checked;
   const priority = document.getElementById("priority-watering").checked;
-  const useHourUnits = document.getElementById("duration-format").checked;
+  const detailedFormat = document.getElementById("duration-format")?.checked ?? false;
 
   const wateringCount = parseInt(document.getElementById("watering-count").value);
   const plantCount = parseInt(document.getElementById("plant-count").value);
@@ -25,6 +39,9 @@ function generateSchedule() {
     output.innerHTML = "<p style='color:red'>Пожалуйста, заполните все поля.</p>";
     return;
   }
+
+  waterList = [];
+  schedule = [];
 
   const waterPerSecond = 1000 / litreTime;
   const totalWater = volume;
@@ -45,8 +62,6 @@ function generateSchedule() {
   const lightMinutes = lightHours * 60 - shiftStart - shiftEnd;
   const interval = wateringCount > 1 ? lightMinutes / (wateringCount - 1) : 0;
 
-  const schedule = [];
-  let waterList = [];
   if (priority) {
     let firstRatio = 0.5;
     if (wateringCount > 3 && wateringCount <= 6) firstRatio = 1 / 3;
@@ -64,26 +79,12 @@ function generateSchedule() {
   for (let i = 0; i < wateringCount; i++) {
     const t = new Date(startTime.getTime());
     t.setMinutes(t.getMinutes() + shiftStart + i * interval);
-    const durationSec = waterList[i] / waterPerSecond;
-    let unit1, unit2, val1, val2;
-
-    if (useHourUnits) {
-      val1 = Math.floor(durationSec / 3600);
-      val2 = Math.floor((durationSec % 3600) / 60);
-      unit1 = "час";
-      unit2 = "мин";
-    } else {
-      val1 = Math.floor(durationSec / 60);
-      val2 = Math.floor(durationSec % 60);
-      unit1 = "мин";
-      unit2 = "сек";
-    }
-
+    const durationSeconds = waterList[i] / waterPerSecond;
     schedule.push({
       time: formatTime(t),
       volume: waterList[i].toFixed(0),
       perPlant: (waterList[i] / plantCount).toFixed(0),
-      duration: `${val1} ${unit1} ${val2} ${unit2} (${Math.floor(durationSec)} ${unit2})`
+      duration: formatDuration(durationSeconds, detailedFormat)
     });
   }
 
@@ -94,7 +95,7 @@ function generateSchedule() {
       ${schedule.map(s => `
         <li>
           ${s.time} — ${s.volume} мл 💧 | по ${s.perPlant} мл на растение
-          <br><small>🕐 Длительность: ${s.duration}</small>
+          <br><small>⏱ Длительность: ${s.duration}</small>
         </li>
       `).join('')}
     </ul>
@@ -102,20 +103,21 @@ function generateSchedule() {
 }
 
 function initBindings() {
-  const ids = ["watering-count", "plant-count", "water-volume"];
-  ids.forEach(id => {
-    const slider = document.getElementById(id);
-    const label = document.getElementById(
-      id === "water-volume" ? "water-volume-display" : `${id}-value`
-    );
+  const updateSliderDisplay = (sliderId, labelId, suffix = '') => {
+    const slider = document.getElementById(sliderId);
+    const label = document.getElementById(labelId);
     slider.addEventListener("input", () => {
-      label.textContent = slider.value + (id === "water-volume" ? " мл" : "");
+      label.textContent = slider.value + suffix;
       generateSchedule();
     });
-  });
+  };
+
+  updateSliderDisplay("watering-count", "poliv-count");
+  updateSliderDisplay("plant-count", "plant-count-value");
+  updateSliderDisplay("water-volume", "water-volume-display", " мл");
 
   document.querySelectorAll("input, select").forEach(el => {
-    el.addEventListener("change", generateSchedule);
+    ["input", "change"].forEach(evt => el.addEventListener(evt, generateSchedule));
   });
 }
 
