@@ -135,3 +135,48 @@ window.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('change', () => {
   readCustomTimes();
 });
+
+
+function buildHhMmSsPickers() {
+  document.querySelectorAll('.hhmmss').forEach(div => {
+    const bind = div.dataset.bind;
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = bind;
+    div.appendChild(hidden);
+
+    ['hh','mm','ss'].forEach(type => {
+      const select = document.createElement('select');
+      select.className = type;
+      const max = type === 'hh' ? 23 : 59;
+      for (let i = 0; i <= max; i++) {
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = i.toString().padStart(2, '0');
+        select.appendChild(opt);
+      }
+      div.appendChild(select);
+    });
+  });
+}
+
+function updateHhMmSsHidden() {
+  document.querySelectorAll('.hhmmss').forEach(div => {
+    const h = div.querySelector('.hh').value;
+    const m = div.querySelector('.mm').value;
+    const s = div.querySelector('.ss').value;
+    div.querySelector('input[type="hidden"]').value = `${h}:${m}:${s}`;
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildHhMmSsPickers();
+
+  // установить дефолтные значения
+  document.querySelectorAll('[data-bind="litre-time"] .mm').forEach(s => s.value = '01');
+  document.querySelectorAll('[data-bind="litre-time"] .ss').forEach(s => s.value = '30');
+  document.querySelectorAll('[data-bind="watering-duration"] .ss').forEach(s => s.value = '30');
+
+  updateHhMmSsHidden();
+  document.querySelector('#watering-form').dispatchEvent(new Event('input'));
+});
+document.addEventListener('input', updateHhMmSsHidden);

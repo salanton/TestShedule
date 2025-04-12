@@ -133,3 +133,23 @@ input[type=range] {
   border-radius: 6px;
   border: 1px solid #ccc;
 }
+
+.hhmmss {
+  display: flex;
+  gap: 4px;
+}
+.hhmmss select {
+  padding: 0.3rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  appearance: none;
+}
+.range-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.range-inline input[type="range"] {
+  flex-grow: 1;
+}
