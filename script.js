@@ -1,6 +1,6 @@
 function parseTimeString(timeStr) {
-  const [hh = 0, mm = 0] = timeStr.split(":").map(Number);
-  return hh * 3600 + mm * 60;
+  const [hh = 0, mm = 0, ss = 0] = timeStr.split(":").map(Number);
+  return hh * 3600 + mm * 60 + ss;
 }
 
 function formatTime(date) {
@@ -8,15 +8,14 @@ function formatTime(date) {
 }
 
 function formatDuration(seconds, detailedFormat) {
-  if (detailedFormat) {
+  if (!detailedFormat) {
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
-    const extra = seconds > 59 ? ` (${seconds}s)` : '';
-    return `${min} мин ${sec} сек${extra}`;
+    return `${min.toString().padStart(2, '0')} мин ${sec.toString().padStart(2, '0')} сек`;
   } else {
     const hr = Math.floor(seconds / 3600);
     const min = Math.floor((seconds % 3600) / 60);
-    return `${hr} час ${min} мин`;
+    return `${hr.toString().padStart(2, '0')} час ${min.toString().padStart(2, '0')} мин`;
   }
 }
 
