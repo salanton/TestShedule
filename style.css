@@ -138,3 +138,7 @@ li {
   margin-bottom: 0.75rem;
   border-radius: 8px;
 }
+
+input[type="time"]::-webkit-datetime-edit-seconds-field {
+  display: inline;
+}
