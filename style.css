@@ -104,15 +104,4 @@ input[type="range"] {
   color: #666;
   margin: 0 0 1rem 0.5rem;
 }
-$1  
-  .inline {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .grid-two-column {
-    grid-template-columns: 1fr;
-  }
-  input[type="time"], select {
-    width: 100%;
-  }
-}
+
