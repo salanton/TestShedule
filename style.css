@@ -105,6 +105,9 @@ input[type="range"] {
   margin: 0 0 1rem 0.5rem;
 }
 @media (max-width: 600px) {
+  .grid-two-column .inline > div {
+    width: 100%;
+  }
   .grid-two-column input[type="time"] {
     width: 100%;
   }
