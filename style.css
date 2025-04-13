@@ -106,6 +106,9 @@ input[type="range"] {
 }
 
 @media (max-width: 600px) {
+  .grid-two-column .inline {
+    display: block;
+  }
   .grid-two-column {
     grid-template-columns: 1fr;
   }
