@@ -44,7 +44,7 @@ input, select {
   box-sizing: border-box;
 }
 input[type="time"] {
-  min-width: 160px;
+  min-widt
 }
 input[type="range"] {
   width: 100%;
@@ -104,11 +104,7 @@ input[type="range"] {
   margin: 0 0 1rem 0.5rem;
 }
 @media (max-width: 600px) {
-  fieldset:has(.grid-two-column) {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+  
   .inline {
     flex-direction: column;
     align-items: stretch;
