@@ -44,7 +44,8 @@ input, select {
   box-sizing: border-box;
 }
 input[type="time"] {
-  min-widt
+  min-width: 160px;
+  width: 100%;
 }
 input[type="range"] {
   width: 100%;
@@ -104,6 +105,10 @@ input[type="range"] {
   margin: 0 0 1rem 0.5rem;
 }
 @media (max-width: 600px) {
+  .grid-two-column > .inline input[type="time"] {
+    width: 100%;
+    max-width: 100%;
+  }
   
   .inline {
     flex-direction: column;
