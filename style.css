@@ -107,6 +107,19 @@ input[type="range"] {
 
 @media (max-width: 600px) {
   .grid-two-column .inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .grid-two-column .inline > div,
+  .grid-two-column input[type="time"],
+  .grid-two-column select {
+    width: auto;
+    flex: 1;
+  }
+  .grid-two-column .inline {
     display: block;
   }
   .grid-two-column {
