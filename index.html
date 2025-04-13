@@ -27,10 +27,17 @@
     </div>
   </div>
   <div class="grid-two-column" style="align-items: center;">
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right;">
-    <span style="font-weight: bold;">🕶 Не учитывать освещение:</span>
-    <p class="option-desc" style="margin-top: 0.25rem;">[Вкл. 00:00 | Режим 24/0]</p>
+  <div class="inline" style="flex-direction: column; align-items: flex-end; text-align: right; gap: 0.25rem;">
+    <label for="ignore-lighting" style="font-weight: bold; white-space: nowrap;">🕶 Не учитывать освещение:</label>
+    <p class="option-desc" style="margin: 0;">[Вкл. 00:00 | Режим 24/0]</p>
   </div>
+  <div class="inline" style="justify-content: flex-start;">
+    <label class="toggle">
+      <input type="checkbox" id="ignore-lighting" />
+      <span class="slider"></span>
+    </label>
+  </div>
+</div>
   <div style="display: flex; justify-content: flex-start; align-items: center;">
     <label class="toggle">
       <input type="checkbox" id="ignore-lighting" />
