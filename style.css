@@ -111,15 +111,12 @@ input[type="range"] {
   }
 
   .grid-two-column .inline {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .grid-two-column .inline > div {
-    flex: 1;
-    width: auto;
+    width: 100%;
   }
 
   .grid-two-column input[type="time"],
@@ -127,8 +124,7 @@ input[type="range"] {
     width: 100%;
   }
 }
-
-  .grid-two-column .inline > div,
+.grid-two-column .inline > div,
   .grid-two-column input[type="time"],
   .grid-two-column select {
     width: auto;
